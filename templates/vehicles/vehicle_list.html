@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Vehicles{% endblock title %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                Available Vehicles: {{ available_vehicles }}
+
+                <a type="button" class="btn btn-success" href="{% url 'checkin' %}">Begin Towing<i
+                        class="fas fa-pencil" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">Vehicle Type</th>
+                    <th scope="col">Vehicle number</th>
+                    <th scope="col">Client Assigned</th>
+                    <th scope="col">Towing begin Date & Time</th>
+                    <th scope="col">Towing Completed Date & Time</th>
+                    <th scope="col">Towing Completed</th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for tow in allocated_vehicles %}
+
+                    <tr>
+                    <td>{{ tow.vehicle_assigned.vehicle_type }}</td>
+
+                    <td>{{ tow.vehicle_assigned.number }}</td>
+                    <td>{{ tow.vehicle_assigned }}</td>
+                    <td>{{ tow.towing_in_date }}</td>
+                    <td>{{ tow.towing_out_date }}</td>
+                    <td>
+                        <a type="button" class="btn btn-success" href="{% url 'towing_out' tow.pk %}">Check Out</a>
+                    </td>
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content %}
